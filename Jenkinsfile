@@ -9,7 +9,7 @@ pipeline{
 		stage('Build') {
 
 			steps {
-				sh 'sudo docker build -t patelsaheb/hellonodejs:eks .'
+				sh 'sudo docker build -t vimal2019/tomimag:4.0 .'
                
 			}
 		}
@@ -18,25 +18,23 @@ pipeline{
 
             steps {
         
-		        withCredentials([string(credentialsId: 'DOCKER_PWD', variable: 'PASSWORD')]) {
-                    sh 'sudo docker login -u patelsaheb -p $PASSWORD'
+		        withCredentials([string(credentialsId: 'vimal2019', variable: 'PASSWORD')]) {
+                    sh 'sudo docker login -u vimal2019 -p $PASSWORD'
                 }
             }
         }
 		stage('Push') {
 
 			steps {
-				sh 'sudo docker push patelsaheb/hellonodejs:eks'
+				sh 'sudo docker push vimal2019/tomimag:4.0'
 			}
 		}
 
         stage('eks deploy') {
 
 			steps {
-				sh 'kubectl get -o yaml deploy/hello-world-nodejs > deploy.yaml'
-                sh "sed -i 's/hellonodejs:latest/hellonodejs:eks/g' deploy.yaml"
                 sh 'kubectl apply -f deploy.yaml'
-                sh 'kubectl rollout restart deployment hello-world-nodejs'
+                sh 'kubectl apply -f ingr'
 			}
 		}
 	}
