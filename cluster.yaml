@@ -1,0 +1,20 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: eks-test-cluster2
+  region: us-east-1
+  version: "1.26"
+
+managedNodeGroups:
+  - name: test-wg01
+    instanceType: t2.medium
+    labels: { role: builders }
+    minSize: 2
+    maxSize: 4
+    ssh: 
+      allow: true
+      publicKeyName: hello
+    tags:
+      Name: test-wg01
+
