@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: vimal2019/mytomimg:3.0
+        image: vimal2019/tomimag:4.0
         ports:
         - containerPort: 80
 ---
